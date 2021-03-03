@@ -1,0 +1,138 @@
+﻿@using WebApplication2.Models;
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="carousel"
+     data-flickity='{ "wrapAround": true, "autoPlay": 5500, "draggable": false}'>
+    <div class="carousel-cell _1">
+        <div class="slider-txt">
+            <h2 class="trending">Trending</h2>
+            <h2 class="titel">Tenet</h2>
+            <h2 class="category">Action | Drama</h2>
+            <a class="trailer" href="">Watch Trailer</a>
+        </div>
+    </div>
+    <div class="carousel-cell _2">
+        <div class="slider-txt">
+            <h2 class="trending">New Season</h2>
+            <h2 class="titel">The Mandalorian</h2>
+            <h2 class="category">Action | Sci-fi</h2>
+            <a class="trailer" href="">Watch Trailer</a>
+        </div>
+    </div>
+    <div class="carousel-cell _3">
+        <div class="slider-txt">
+            <h2 class="trending">New Release</h2>
+            <h2 class="titel">The New Mutants</h2>
+            <h2 class="category">Action | Horror</h2>
+            <a class="trailer" href="">Watch Trailer</a>
+        </div>
+    </div>
+    <div class="carousel-cell _4">
+        <div class="slider-txt">
+            <h2 class="trending">Trending</h2>
+            <h2 class="titel">Mulan</h2>
+            <h2 class="category">Action | Adventure</h2>
+            <a class="trailer" href="">Watch Trailer</a>
+        </div>
+    </div>
+    <div class="carousel-cell _5">
+        <div class="slider-txt">
+            <h2 class="trending">Popular</h2>
+            <h2 class="titel">The Spongebob Movie: <br> Sponge on the Run</h2>
+            <h2 class="category">Animation | Family</h2>
+            <a class="trailer" href="">Watch Trailer</a>
+        </div>
+    </div>
+</div>
+<h2 class="section">Popular Right Now</h2>
+
+
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.PopularMovies.results)
+        {
+            <a href="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background-image: url(https://image.tmdb.org/t/p/original/@r.poster_path );
+        background-size: cover;
+        text-decoration: none;
+">
+                   
+
+                </div>
+                 
+            </a>
+        }
+    </div>
+
+
+</div>
+
+<h2 class="section">Upcoming Movies</h2>
+
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.UpcomingMovies.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+                   
+
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+
+
+<h2 class="section">Popular TV-Series</h2>
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.PopularTV.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+
+
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+<h2 class="section">In Theatres</h2>
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.NowPlaying.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+
+
+                </div>
+            </a>
+        }
+    </div>
+</div>

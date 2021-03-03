@@ -1,0 +1,95 @@
+﻿@using WebApplication2.Models;
+@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2 class="section">Popular Right Now</h2>
+
+
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.PopularMovies.results)
+        {
+            <a href="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background-image: url(https://image.tmdb.org/t/p/original/@r.poster_path );
+        background-size: cover;
+        text-decoration: none;
+">
+                   
+
+                </div>
+                 
+            </a>
+        }
+    </div>
+
+
+</div>
+
+<h2 class="section">Upcoming Movies</h2>
+
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.UpcomingMovies.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+                   
+
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+
+
+<h2 class="section">Popular TV-Series</h2>
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.PopularTV.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+
+
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+<h2 class="section">In Theatres</h2>
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var r in Model.NowPlaying.results)
+        {
+            <a asp-action="movie/index/@r.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@r.poster_path);
+        background-size: cover;">
+
+
+                </div>
+            </a>
+        }
+    </div>
+</div>

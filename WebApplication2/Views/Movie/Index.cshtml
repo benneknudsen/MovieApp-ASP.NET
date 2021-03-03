@@ -1,0 +1,192 @@
+﻿@using WebApplication2.Models;
+@model MovieViewModel;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+
+
+<p style="display: none;">
+    <a asp-action="Create">Create New</a>
+</p>
+<div id="largepage" style="position: relative; z-index: 1; background-image: url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/@Model.movie.backdrop_path );
+     background-repeat: no-repeat;
+     background-size: cover;">
+    <div id="custombg">
+        <div class="moviegrid">
+            <div class="grid-cell-1">@Model.movie.original_title</div>
+            <div class="grid-cell-2">Action | Suspense | Adventure</div>
+            <div class="grid-cell-3">@Model.movie.overview</div>
+            <div class="grid-cell-4">
+                @using (Html.BeginForm("saveMovie", "Movie", FormMethod.Post))
+                {
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+
+                        <input name="movieApiId" class="form-control" value="@Model.movie.id" style="display: none;" />
+
+                    </div>
+                    <div class="form-group" style="position: relative; z-index: 99;">
+                        <input type="submit" value="Add to Favorites" class="button" />
+                    </div>
+
+                }
+
+
+            </div>
+
+            <div class="grid-cell-6">
+
+                @if (Model.watchProviders.results.US.rent != null)
+                {
+                    @for (var i = 0; i < 6; i++)
+                    {
+                        var url = string.Format("https://image.tmdb.org/t/p/w300{0}", Model.watchProviders.results.US.rent[i].logo_path);
+
+                        <img style="
+" src="@url" />
+                    }
+
+                }
+            </div>
+            <a class="grid-cell-5" href="moviepage.html"><img src="https://image.tmdb.org/t/p/w500/@Model.movie.poster_path" alt="" srcset=""></a>
+
+        </div>
+    </div>
+</div>
+<h2 class="section">Actors</h2>
+
+<div id="castlist">
+    <div class="castcontainer">
+
+        @foreach (var actor in Model.actors.cast)
+        {
+            <div class="castinfo" style="margin: 0 20px;">
+                <div style="        border-radius: 5px 5px 0 0;
+        width: 150px;
+        height: 200px;
+
+        background: url(https://image.tmdb.org/t/p/w138_and_h175_face/@actor.profile_path );
+        background-size: cover;">
+
+
+                </div>
+
+
+                <p>@actor.name</p>
+
+            </div>
+
+        }
+    </div>
+</div>
+<h2 class="section">Trailers</h2>
+@foreach (var item in Model.trailers.results)
+{
+    <iframe style=" display: flex; width: 250px; height: 200px; justify-content: center; align-items: center; margin: 5px 20px; border: none;" src="https://www.youtube.com/embed/@item.key"></iframe>
+}
+
+<h2 class="section">Related Movies</h2>
+
+<div id="container">
+    <div id="moviecontainer">
+        @foreach (var item in Model.relatedMovies.results)
+        {
+            <a href="/movie/index/@item.id">
+                <div style="        width: 200px;
+        height: 300px;
+        border-radius: 5px;
+        background: url(https://image.tmdb.org/t/p/w500/@item.poster_path);
+        background-size: cover;">
+
+
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+
+
+<h2 class="section">Comments</h2>
+
+@if (Model.comments != null)
+{
+    @foreach (var item in Model.comments)
+    {
+        <div class="commentcontainer" id="comment{@item.commentId}">
+            <div style="color: white;">
+                @Html.DisplayFor(modelItem => item.content)
+            </div>
+            <div style="display: flex; justify-content: flex-end; ">
+                <button class="edit" asp-action="Edit" onclick="editComment(event)" id="@item.commentId">Edit</button>
+                @using (Html.BeginForm("deleteComment", "Movie", FormMethod.Post))
+                {
+                    <input name="commentId" class="form-control" value="@item.commentId" style="display: none;" />
+                    <input name="movieApiId" class="form-control" value="@Model.movie.id" style="display: none;" />
+                    <input class="delete" type="submit" value="Delete" />
+                }
+            </div>
+        </div>
+        @using (Html.BeginForm("editComment", "Movie", FormMethod.Post))
+        {
+            <div class="commentsection" id="edit{@item.commentId}" style="display: none;">
+                <input name="commentId" class="form-control" value="@item.commentId" style="display: none;" />
+                <div class="form-group">
+                    <label name="comment" class="control-label"></label>
+                    <input name="comment" class="form-control" value="@item.content" />
+                    <span name="comment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label name="movieApiId" class="control-label"></label>
+                    <input name="movieApiId" class="form-control" value="@Model.movie.id" style="display: none;" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="submit" />
+                </div>
+            </div>
+        }
+    }
+}
+<br></br>
+
+
+@using (Html.BeginForm("addComment", "Movie", FormMethod.Post))
+{
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label name="comment" class="control-label"></label>
+        <input name="comment" class="form-control tabb" />
+        <span name="comment" class="text-danger"></span>
+    </div>
+    <br></br>
+    <div class="form-group">
+        <label name="movieApiId" class="control-label"></label>
+        <input name="movieApiId" class="form-control" value="@Model.movie.id" style="display: none;" />
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Add comment" class="submit" />
+    </div>
+
+}
+<script>
+    const editComment = (e) => {
+        const id = e.target.id
+        const comment = document.getElementById(`comment{${id}}`)
+        const edit = document.getElementById(`edit{${id}}`)
+        comment.setAttribute("style", "display: none;")
+        edit.setAttribute("style", "display: block;");
+
+    }
+</script>
+
+
+

@@ -1,0 +1,65 @@
+﻿@model WebApplication2.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="section">Create New Account</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @* <label asp-for="userName" class="control-label"> *@
+                <input data-val="true" data-val-required="The user name is required" id="userName" placeholder="Username"  asp-for="userName" class="form-control" />
+                <span asp-validation-for="userName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @* <label asp-for="firstName" class="control-label"></label>*@
+                <input data-val="true" data-val-required="The first name is required" id="firstName" placeholder="First Name" asp-for="firstName" class="form-control" />
+                <span asp-validation-for="firstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*  <label asp-for="lastName" class="control-label"></label>*@
+                <input data-val="true" data-val-required="The last name is required" id="lastName" placeholder="Last Name" asp-for="lastName" class="form-control" />
+                <span asp-validation-for="lastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*   <label asp-for="email" class="control-label"></label>*@
+                <input data-val="true" data-val-required="The email is required" id="email" placeholder="E Mail" asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="password" class="control-label"></label>*@
+                <input  data-val="true" data-val-required="The password is required" id="password" placeholder="Password" asp-for="password" class="form-control" />
+                <span asp-validation-for="password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @* <label asp-for="birthDate" class="control-label"></label>*@
+                <input data-val="true" data-val-required="The birth date is required" id="birthDate" placeholder="Birthday" asp-for="birthDate" class="form-control" />
+                <span asp-validation-for="birthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @* <label asp-for="gender" class="control-label"></label>*@
+                <input  data-val="true" data-val-required="The gender is required" id="gender" placeholder="Gender: Male or Female" asp-for="gender" class="form-control" />
+
+                <span asp-validation-for="gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="submit" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js" integrity="sha512-EanukVTZc4W9tUCLnDl069Izidg49PcNRKO1upLzKt9ajq66i+bXOtlzXcIbRhb6vVEGF6BCc8wQi5T1ztCpTQ==" crossorigin="anonymous"></script>
+}
